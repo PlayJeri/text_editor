@@ -4,17 +4,16 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/PlayJeri/text-editor/src/io"
 	"github.com/mattn/go-runewidth"
 	"github.com/nsf/termbox-go"
 )
 
 var ROWS, COLS int
 var offsetX, offsetY int
+var source_file string
 
-var text_buffer = [][]rune{
-	{'H', 'e', 'l', 'l', 'o', ','},
-	{'W', 'o', 'r', 'l', 'd', '!'},
-}
+var text_buffer = [][]rune{}
 
 func display_text_buffer() {
 	var row, col int
@@ -41,6 +40,13 @@ func Run_editor() {
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
+	}
+	if len(os.Args) > 1 {
+		load_file := os.Args[1]
+		io.Read_file(load_file, &source_file, &text_buffer)
+	} else {
+		source_file = "out.txt"
+		text_buffer = append(text_buffer, []rune{})
 	}
 	for {
 		ROWS, COLS = termbox.Size()
