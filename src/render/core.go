@@ -1,13 +1,18 @@
-package pkg
+package render
 
 import (
 	"github.com/nsf/termbox-go"
 )
 
-func StartEditor() {
+func Run() {
 	err := termbox.Init()
 	if err != nil {
 		panic(err)
 	}
 	defer termbox.Close()
+
+	// Main event loop
+	for {
+
+	}
 }
